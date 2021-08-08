@@ -23,10 +23,10 @@ app.use("/posts", postsRouter); // for /posts routes use postsRouter
 
 
 app.get('/', async (req, res) => {
-    const posts = await PostsModel.find().sort({
+    const post = await PostsModel.find().sort({
         createdAt: "desc",
     })
-    res.render('posts/index', { posts: posts })
+    res.render('posts/index', { post: post })
 })
 
 app.listen(PORT, () => {

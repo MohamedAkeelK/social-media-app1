@@ -1,0 +1,31 @@
+<div class="form-group">
+  <label for="title">Title</label>
+  <input
+    required
+    value="<%= post.userName %>"
+    type="text"
+    name="userName"
+    id="userName"
+    class="form-control"
+  />
+</div>
+<div class="form-group">
+  <label for="message">message</label>
+  <textarea name="message" id="message" class="form-control">
+<%= post.message %></textarea
+  >
+</div>
+<div class="form-group">
+  <label for="imageUrl">imageUrl</label>
+  <input
+    required
+    value="<%= post.imageUrl %>"
+    type="text"
+    name="imageUrl"
+    id="imageUrl"
+    class="form-control"
+  />
+</div>
+
+<a href="/" class="btn btn-secondary">Cancel</a>
+<button type="submit" class="btn btn-primary">Save</button>
