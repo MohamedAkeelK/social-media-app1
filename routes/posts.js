@@ -60,57 +60,83 @@ router.get("/edit/:id", async (req, res) => {
 // );
 
 router.post("/", async (req, res, next) => {
-  console.log(req.body);
-  const post = new PostsModel({
-    userName: req.body.userName,
-    message: req.body.message,
-    imageUrl: req.body.imageUrl,
-  });
-
-  post.save().then(() => console.log("Saved new post"));
-  res.json(post);
-
-  // let post = new PostsModel({
+  // console.log(req.body);
+  // const post = new PostsModel({
   //   userName: req.body.userName,
   //   message: req.body.message,
   //   imageUrl: req.body.imageUrl,
   // });
-  // try {
-  //   await post.save();
-  //   res.redirect(`posts/${post.id}`);
-  // } catch (e) {
-  //   res.render("posts/new", { post: post });
-  // }
+
+  // post.save().then(() => console.log("Saved new post"));
+  // res.redirect(`posts/${post.id}`);
+  // res.json(post);
+
+  let post = new PostsModel({
+    userName: req.body.userName,
+    message: req.body.message,
+    imageUrl: req.body.imageUrl,
+  });
+  try {
+    await post.save();
+    res.redirect(`posts/${post.id}`);
+  } catch (e) {
+    res.render("posts/new", { post: post });
+  }
 });
 
-router.put("/:id", async (req, res, next) => {
-  req.post = await PostsModel.findById(req.params.id);
+router.post("/edit/:id", async (req, res, next) => {
+  let post = await PostsModel.findById(req.params.id);
   // let post = req.body;
   post.userName = req.body.userName;
   post.message = req.body.message;
   post.imageUrl = req.body.imageUrl;
   try {
-    console.log("ff");
+    console.log("edit request");
     post = await post.save();
     res.redirect(`/posts/${post.id}`);
   } catch (e) {
+    console.log("error");
     res.render(`posts/${path}`, { post: post });
   }
 });
 
-// router.delete("/:id", async (req, res) => {
-//   await PostsModel.findByIdAndDelete(req.params.id);
-//   // res.send("delete request");
-//   res.redirect("/");
+// router.post("/:id", async (req, res) => {
+//   try {
+//     console.log("edit try block");
+//     const updatedPost = await PostsModel.updateOne(
+//       { _id: req.params.postId },
+//       {
+//         $set: {
+//           userName: req.body.userName,
+//           message: req.body.message,
+//           imageUrl: req.body.imageUrl,
+//         },
+//       }
+//     );
+//     // res.send(updatedPost);
+//     res.redirect(`/posts/${post.id}`, { updatedPost });
+//   } catch (err) {
+//     console.log("edit try block ERROR");
+//     res.json({ message: err });
+//   }
 // });
-router.delete("/:id", async (req, res) => {
-  try {
-    const removedPost = await Post.deleteOne({ _id: req.params.id });
-    res.json(removedPost);
-    console.log("deleted post");
-  } catch (err) {
-    res.json({ message: err });
-  }
+
+router.post("/:id", async (req, res) => {
+  console.log("delete request");
+
+  await PostsModel.findByIdAndDelete(req.params.id);
+  // res.send("delete request");
+  res.redirect("/");
 });
+// router.delete("posts/:id", async (req, res) => {
+//   try {
+//     const removedPost = await Post.deleteOne({ _id: req.params.id });
+//     // removedPost();
+//     res.json(removedPost);
+//     console.log("deleted post");
+//   } catch (err) {
+//     res.json({ message: err });
+//   }
+// });
 
 module.exports = router;
