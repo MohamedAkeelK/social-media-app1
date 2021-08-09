@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- CSS only -->
-    <link rel="stylesheet" type="text/css" href="../../public/css/main.css" />
+    <link rel="stylesheet" type="text/css" href="/public/css/main.css" />
 
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
@@ -28,13 +28,19 @@
           <div class="card-subtitle text-muted mb-2">
             <%= post.createdAt.toLocaleDateString() %>
           </div>
+          <h5>Message:</h5>
           <div class="card-text mb-4"><%= post.message %></div>
+          <h5>Image:</h5>
           <div class="card-text mb-4"><%= post.imageUrl %></div>
-          <a href="posts/<%= post.id %>" class="btn btn-primary">View Post</a>
+          <a href="posts/<%= post.id %>" class="btn btn-primary"
+            >View Activity</a
+          >
           <!-- <a href="posts/edit/<%= post.id %>" class="btn btn-info">Edit</a> -->
-          <form action="/posts/<%= post.id %>" method="POST" class="d-inline">
-            <button type="submit" class="btn btn-danger">Delete</button>
-          </form>
+          <!-- <form action="/posts/<%= post.id %>" method="POST" class="d-inline">
+            <button type="submit" class="btn btn-danger">
+              Delete Activity
+            </button>
+          </form> -->
         </div>
       </div>
       <% }) %>

@@ -7,6 +7,7 @@ require("dotenv/config");
 
 const app = express();
 const PORT = 5000;
+app.use(express.static(__dirname + "/public"));
 
 // connect to database
 mongoose.connect(
@@ -18,7 +19,6 @@ mongoose.connect(
 );
 
 //middleware
-app.use(express.static("public"));
 app.set("view engine", "ejs"); // set view engine to ejs
 app.use(express.urlencoded({ extended: false }));
 app.use("/posts", postsRouter); // for /posts routes use postsRouter

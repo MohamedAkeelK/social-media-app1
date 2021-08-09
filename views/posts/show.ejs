@@ -14,17 +14,27 @@
 
     <title>Document</title>
   </head>
-  <body>
+  <body style="background-color: #8000ff">
     <div class="container">
-      <h1 class="mb-1"><%= post.userName %></h1>
-      <div class="text-muted mb-2">
-        <%= post.createdAt.toLocaleDateString() %>
+      <div class="card mt-4">
+        <div class="card-body">
+          <h4 class="card-title display-4"><%= post.userName %>'s Activity</h4>
+          <div class="card-subtitle text-muted mb-4">
+            <%= post.createdAt.toLocaleDateString() %>
+          </div>
+          <h5>Message:</h5>
+          <div class="card-text mb-4"><%= post.message %></div>
+          <h5>Image:</h5>
+          <div class="card-text mb-4"><%= post.imageUrl %></div>
+          <a href="/" class="btn btn-primary">All Activities</a>
+          <a href="/posts/edit/<%= post.id %>" class="btn btn-secondary"
+            >Edit</a
+          >
+          <form action="/posts/<%= post.id %>" method="POST" class="d-inline">
+            <button type="submit" class="btn btn-danger">Delete</button>
+          </form>
+        </div>
       </div>
-      <a href="/" class="btn btn-secondary">All Posts</a>
-      <a href="/posts/edit/<%= post.id %>" class="btn btn-info">edit</a>
-
-      <div><%= post.message %></div>
-      <div class="mt-4"><%= post.imageUrl %></div>
     </div>
   </body>
 </html>
