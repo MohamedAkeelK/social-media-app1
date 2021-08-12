@@ -3,11 +3,11 @@ const mongoose = require("mongoose");
 const PostsModel = require("./models/postsModel");
 const postsRouter = require("./routes/posts"); // my articles routes
 const path = require("path");
+const ejs = require("ejs");
 require("dotenv/config");
 
 const app = express();
 const PORT = 5000;
-app.use(express.static(__dirname + "/public"));
 
 // connect to database
 mongoose.connect(
@@ -20,9 +20,11 @@ mongoose.connect(
 
 //middleware
 app.set("view engine", "ejs"); // set view engine to ejs
+app.use(express.static(__dirname + "/public"));
 app.use(express.urlencoded({ extended: false }));
 app.use("/posts", postsRouter); // for /posts routes use postsRouter
 
+// GET home route 
 app.get("/", async (req, res) => {
   const post = await PostsModel.find().sort({
     createdAt: "desc",
@@ -30,6 +32,7 @@ app.get("/", async (req, res) => {
   res.render("posts/index", { post: post });
 });
 
+// listen on server
 app.listen(PORT, () => {
   console.log(`server listening on port: ${PORT}`);
 });
